@@ -16,3 +16,6 @@ set(libs
 
 add_executable(${PROJECT_NAME} src/main.cpp)
 target_link_libraries(${PROJECT_NAME} ${libs})
+
+add_executable(task_02 src/task_02/main.cpp)
+target_link_libraries(task_02 ${libs})
