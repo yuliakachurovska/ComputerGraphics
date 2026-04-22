@@ -124,6 +124,7 @@ int main(void)
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
+
         /* Poll for and process events */
         glfwPollEvents();
     } while (!glfwWindowShouldClose(window) && !glfwGetKey(window, GLFW_KEY_ESCAPE));
