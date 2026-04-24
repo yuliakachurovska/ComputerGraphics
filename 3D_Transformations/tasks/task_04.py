@@ -5,7 +5,6 @@ from src.engine.animation.TrsTransformationAnimation import TrsTransformationAni
 from src.engine.model.Cube import Cube
 from src.engine.scene.AnimatedScene import AnimatedScene
 from src.math.Mat4x4 import Mat4x4
-from src.math.Vec4 import Vec4
 
 if __name__ == '__main__':
     CUBE_START_KEY = "cube_start"
@@ -23,33 +22,22 @@ if __name__ == '__main__':
             self[CUBE_ANIMATED_KEY] = cube_animated
 
     animated_scene = CubeScene(
-        coordinate_rect=(-2, -3, -2, 6, 6, 6),
-        title="Завдання 3: Обертання навколо Z, діагоналі та переміщення"
+        coordinate_rect=(-2, -1, -3, 4, 5, 3),
+        title="Завдання 4: Поворот у системі кутів Ейлера ZYX"
     )
 
-    R1_z = Mat4x4.rotation_z(60, is_radians=False)
+    Rx = Mat4x4.rotation_x(50, is_radians=False)
+    Ry = Mat4x4.rotation_y(35, is_radians=False)
+    Rz = Mat4x4.rotation_z(20, is_radians=False)
 
-    axis_v = Vec4(1, 1, 1)
-    angle_arb = 45
+    T_final = Mat4x4.translation(1, 3, -2)
 
-    phi = math.degrees(math.atan2(axis_v.x, axis_v.z))
-    v_z_prime = math.sqrt(axis_v.x**2 + axis_v.z**2)
-    theta = math.degrees(math.atan2(axis_v.y, v_z_prime))
-
-    Ry = Mat4x4.rotation_y(-phi, is_radians=False)
-    Rx = Mat4x4.rotation_x(theta, is_radians=False)
-    Rz = Mat4x4.rotation_z(angle_arb, is_radians=False)
-
-    R2_arb = Ry.transpose() * Rx.transpose() * Rz * Rx * Ry
-
-    T_final = Mat4x4.translation(4, -2, 1)
-
-    M_total = T_final * R2_arb * R1_z
+    M_total = T_final * Rz * Ry * Rx
 
     animation_move = TrsTransformationAnimation(
         end=M_total,
         channel=CUBE_ANIMATED_KEY,
-        frames=180,
+        frames=150,
         repeat=False
     )
 
